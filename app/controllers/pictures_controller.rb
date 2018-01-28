@@ -1,38 +1,38 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  # before_action :session_login, only: [:new, :edit, :show, :destroy]
+  before_action :session_login, only: [:index, :new, :edit, :show, :destroy]
 
   # GET /pictures
   # GET /pictures.json
   def index
     @pictures = Picture.all
-    # binding.pry
   end
 
   # GET /pictures/1
   # GET /pictures/1.json
   def show
+    @picture = Picture.find(params[:id])
+    @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
 
   # GET /pictures/new
   def new
      @picture = Picture.new
-    # if params[:back]
-    # @picture = Picture.new(picture_params)
-    # else
-    #   @picture = Picture.new
-    # end
+    if params[:back]
+    @picture = Picture.new(picture_params)
+    else
+      @picture = Picture.new
+    end
   end
 
   # GET /pictures/1/edit
   def edit
+    @picture = Picture.find(params[:id])
   end
   
   def confirm
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id  #ここで、user_idに値を入れないといけない
-    # puts "--------------debug"
-    # puts @blog.user_id   
     render :new if @picture.invalid?
   end
 
@@ -43,6 +43,7 @@ class PicturesController < ApplicationController
     @picture.user_id = current_user.id
 
     respond_to do |format|
+      @picture.image.retrieve_from_cache! params[:cache][:image]
       # binding.pry
       if @picture.save
         PictureMailer.picture_mail(@picture).deliver  ##追記
@@ -93,8 +94,6 @@ class PicturesController < ApplicationController
     def session_login
       if session[:user_id] == nil
         redirect_to new_session_path
-      else
-        redirect_to pictures_path
       end
     end
 end
