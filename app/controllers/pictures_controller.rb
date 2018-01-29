@@ -46,7 +46,7 @@ class PicturesController < ApplicationController
       @picture.image.retrieve_from_cache! params[:cache][:image]
       # binding.pry
       if @picture.save
-        PictureMailer.picture_mail(@picture).deliver  ##追記
+        # PictureMailer.picture_mail(@picture).deliver  ##追記
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
         format.json { render :show, status: :created, location: @picture }
       else
