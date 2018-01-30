@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :feeds
-  root 'pictures#new'
+  root 'sessions#new'
   resources :pictures do
         collection do
             post :confirm

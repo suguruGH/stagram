@@ -59,7 +59,9 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
   def update
+    # @picture = Picture.find_by_id(params[:id])
     respond_to do |format|
+      # binding.pry
       if @picture.update(picture_params)
         format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
         format.json { render :show, status: :ok, location: @picture }

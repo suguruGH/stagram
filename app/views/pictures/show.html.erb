@@ -4,7 +4,7 @@
   <strong>Image:</strong>
   <%= hidden_field_tag :"cache[image]", @picture.image.cache_name %>
   <%= image_tag(@picture.image.url) %>
-  <%#= @picture.image %>
+  <%= @picture.image %>
 </p>
 
 <p>
