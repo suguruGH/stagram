@@ -6,11 +6,9 @@
 <% @favorites_pictures.each do |favorite_picture| %>
 <%= hidden_field_tag :"cache[image]", favorite_picture.image.cache_name %>
 <%= image_tag(favorite_picture.image.url) %>
-<%#= favorite_picture.image %>
+<%= favorite_picture.image %>
 <%= favorite_picture.title %>
 <%= favorite_picture.content %>
 
-<%= link_to 'New Picture', new_picture_path %>
-
 <% end %>
-
+<%= link_to 'New Picture', new_picture_path %>

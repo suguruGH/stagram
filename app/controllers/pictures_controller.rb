@@ -11,7 +11,6 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    @picture = Picture.find(params[:id])
     @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
 
@@ -27,7 +26,6 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-    @picture = Picture.find(params[:id])
   end
   
   def confirm
@@ -39,12 +37,11 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
+    
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-
+    @picture.image.retrieve_from_cache! params[:cache][:image] if @picture.image.present?
     respond_to do |format|
-      @picture.image.retrieve_from_cache! params[:cache][:image]
-      # binding.pry
       if @picture.save
         # PictureMailer.picture_mail(@picture).deliver  ##追記
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
@@ -90,7 +87,7 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:title, :content, :image)
+      params.require(:picture).permit(:title, :content, :image, :image_cache)
     end
     
     def session_login

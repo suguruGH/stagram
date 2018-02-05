@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :feeds
   root 'sessions#new'
   resources :pictures do
         collection do
