@@ -1,3 +1,6 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
 <p id="notice"><%= notice %></p>
 
 <h1>Pictures</h1>
@@ -5,26 +8,33 @@
 <table>
   <thead>
     <tr>
-      <th>Image</th>
+      <th class="">Image</th>
       <th>Title</th>
       <th>Content</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   
-  <tbody>
+  <tbody class='img-rounded'>
     <% @pictures.each do |picture| %>
       <tr>
         <td class = "img-td">
-          <strong>Image:</strong>
+          <strong>投稿写真:</strong>
           <%= image_tag(picture.image) %>
         </td>
         <td><%= picture.title %></td>
         <td><%= picture.content %></td>
     
     <td class = "img-td">
-      <strong>投稿者:</strong>
-      <%= image_tag(picture.user.image) %>
+      <p>
+        <strong>顔:</strong>
+        <% if picture.image != nil %>
+          <%= image_tag (picture.user.image) %>
+          <%#= hidden_field_tag :"cache[image]",@picture.image.cache_name %>
+        <% else %>
+          <p>no image</p>
+        <% end %>
+      </p>
     </td>
         <% if current_user.id == picture.user_id %>
           <td><%= link_to 'Show', picture, class: 'btn btn-default' %></td>
@@ -39,4 +49,7 @@
 
 <br>
 
-<%= link_to 'New Picture', new_picture_path %>
+<%= link_to 'New Picture', new_picture_path, class: 'btn btn-info' %>
+    </div>
+  </div>
+</div>

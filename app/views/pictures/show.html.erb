@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Image:</strong>
-  <%#= hidden_field_tag :"cache[image]", @picture.image.cache_name %>
+  <strong>投稿写真:</strong>
+  <%= hidden_field_tag :"cache[image]", @picture.image.cache_name %>
   <%= image_tag(@picture.image) %>
 </p>
 

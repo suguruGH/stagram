@@ -18,7 +18,7 @@ class PicturesController < ApplicationController
   def new
      @picture = Picture.new
     if params[:back]
-    @picture = Picture.new(picture_params)
+      @picture = Picture.new(picture_params)
     else
       @picture = Picture.new
     end
@@ -40,7 +40,7 @@ class PicturesController < ApplicationController
     
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-    @picture.image.retrieve_from_cache! params[:cache][:image] if @picture.image.present?
+    @picture.image.retrieve_from_cache!(params[:cache][:image]) unless params[:cache][:image].blank?   ##画像のurlが空ではなければ,メッソドが動く
     respond_to do |format|
       if @picture.save
         # PictureMailer.picture_mail(@picture).deliver  ##追記

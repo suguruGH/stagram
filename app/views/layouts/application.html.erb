@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <header>
+      <h1>Instagramの練習です!</h1>
+    </header>
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
@@ -20,7 +23,12 @@
       <%= link_to "Sign up", new_user_path %>
       <%= link_to "Login", new_session_path %>
     <% end %>
+  
+<%= yield %>
     
-    <%= yield %>
+    <footer>
+      運営会社Stagram株式会社 20xx-20xx Copyright Stagram Corp
+    </footer>
+    
   </body>
 </html>
